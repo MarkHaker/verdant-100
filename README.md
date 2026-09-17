@@ -24,9 +24,10 @@
 |---|---|---|
 | **D-PAD (Up / Down / Left / Right)** | `↑` `↓` `←` `→` | `W` `S` `A` `D` (or Cyrillic `Ц` `Ы` `Ф` `В`) |
 | **A Button (Action / Confirm)** | `Z` / `Space` | `C`, `J` |
-| **B Button (Back / Cancel)** | `X` / `Escape` | `V`, `K`, `Backspace` |
+| **B Button (Back / In-game Action)** | `X` | `V`, `K`, `Backspace` |
 | **START (Start / Pause)** | `Enter` | `NumpadEnter` |
 | **SORT BY CATEGORY (Filter Genre)** | `Shift` | `Tab` |
+| **ESCAPE TO MENU (Instant Exit to Main Menu)** | `Escape` | Chassis `MENU` Dock Button |
 
 ### Touchscreen & Mouse
 - **Molded D-Pad**: Click the 4 directional arrow buttons or swipe freely within the circular D-Pad zone.

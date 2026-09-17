@@ -67,10 +67,9 @@ const PAD = {
       'ArrowLeft': 'left', 'KeyA': 'left',
       'ArrowRight': 'right', 'KeyD': 'right',
       'KeyZ': 'a', 'KeyJ': 'a', 'Space': 'a', 'KeyC': 'a',
-      'KeyX': 'b', 'KeyK': 'b', 'KeyV': 'b',
+      'KeyX': 'b', 'KeyK': 'b', 'KeyV': 'b', 'Backspace': 'b',
       'Enter': 'start', 'NumpadEnter': 'start',
-      'ShiftLeft': 'select', 'ShiftRight': 'select', 'Tab': 'select',
-      'Escape': 'b', 'Backspace': 'b'
+      'ShiftLeft': 'select', 'ShiftRight': 'select', 'Tab': 'select'
     };
 
     const keyMap = {
@@ -79,14 +78,23 @@ const PAD = {
       'arrowleft': 'left', 'a': 'left', 'ф': 'left',
       'arrowright': 'right', 'd': 'right', 'в': 'right',
       'z': 'a', 'я': 'a', 'j': 'a', 'о': 'a', ' ': 'a', 'c': 'a', 'с': 'a',
-      'x': 'b', 'ч': 'b', 'k': 'b', 'л': 'b', 'v': 'b', 'м': 'b',
+      'x': 'b', 'ч': 'b', 'k': 'b', 'л': 'b', 'v': 'b', 'м': 'b', 'backspace': 'b',
       'enter': 'start',
-      'shift': 'select', 'tab': 'select',
-      'escape': 'b', 'backspace': 'b'
+      'shift': 'select', 'tab': 'select'
     };
 
     window.addEventListener('keydown', (e) => {
       APU.init();
+
+      // Dedicated Escape key handler: instantly drop out of any game or screen back to main menu
+      if (e.code === 'Escape' || (e.key && e.key.toLowerCase() === 'escape')) {
+        e.preventDefault();
+        if (typeof VOS !== 'undefined' && VOS.powerOn && VOS.mode !== 'MENU') {
+          VOS.exitToMenu();
+          return;
+        }
+      }
+
       const action = codeMap[e.code] || (e.key ? keyMap[e.key.toLowerCase()] : null);
       if (action) {
         if (!this.state[action]) this.vibrate(8);
@@ -308,9 +316,7 @@ const PAD = {
     const btnMenu = document.getElementById('btn-menu');
     if (btnMenu) {
       btnMenu.addEventListener('click', () => {
-        if (VOS.mode === 'GAME') {
-          VOS.pauseGame();
-        } else if (VOS.mode === 'PAUSE') {
+        if (typeof VOS !== 'undefined' && VOS.powerOn && VOS.mode !== 'MENU') {
           VOS.exitToMenu();
         }
       });

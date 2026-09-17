@@ -134,7 +134,10 @@ const VOS = {
     APU.sfx('INSERT');
     APU.stopMenuMusic();
 
-    setTimeout(() => {
+    if (this.launchTimer) clearTimeout(this.launchTimer);
+    this.launchTimer = setTimeout(() => {
+      this.launchTimer = null;
+      if (this.mode === 'MENU' || !this.activeCart) return;
       APU.jingle(id);
       cart.init();
       const savedPer = SAVE.getPersistent(id);
@@ -162,6 +165,10 @@ const VOS = {
   },
 
   exitToMenu() {
+    if (this.launchTimer) {
+      clearTimeout(this.launchTimer);
+      this.launchTimer = null;
+    }
     if (this.activeCart) {
       if (this.activeCart.save) {
         const per = this.activeCart.save();
