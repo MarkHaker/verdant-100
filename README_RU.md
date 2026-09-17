@@ -2,14 +2,16 @@
   <a href="README.md">English</a> | <b>Русский</b> | <a href="README_ZH.md">简体中文</a>
 </p>
 
-﻿# 📟 VERDANT-100 — Retro Phosphor Handheld Console
+# 📟 VERDANT-100 — Ретро-люминофорная портативная консоль
 
-> **100 Cartridges in 1 Handheld Console · Pure Vanilla Web Platform · Zero Dependencies**
+> **100 встроенных картриджей в одной ретро-консоли · Чистый веб · Без внешних библиотек**
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-4ef574?style=for-the-badge)
 ![Platform: Web](https://img.shields.io/badge/Platform-HTML5%20%7C%20Canvas2D%20%7C%20WebAudio-1b7a32?style=for-the-badge)
 ![Games: 100](https://img.shields.io/badge/Games-100%20Cartridges-0e3816?style=for-the-badge)
 ![FPS: 60](https://img.shields.io/badge/FPS-60%20Hz%20Phosphor%20CRT-4ef574?style=for-the-badge)
+
+🎮 **[Играть онлайн в браузере (GitHub Pages)](https://markhaker.github.io/verdant-100/)**
 
 **VERDANT-100** — виртуальная портативная игровая консоль в эстетике монохромных люминофорных CRT-дисплеев и ранних портативок рубежа 80-х и 90-х годов. На борту консоли находится **100 полноценных игр** (10 жанров по 10 картриджей), синтезатор чиптюн-звуков, сохранение рекордов в LocalStorage, выбор сложности и адаптивный корпус, подстраивающийся под любой экран — от смартфонов до 4K-мониторов.
 
