@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="VERDANT-100 — 100 Games in 1 Phosphor CRT Handheld Console. Zero dependencies, 60 FPS chiptune retro console.">
+  <meta name="theme-color" content="#051408">
+  <title>VERDANT-100 — Retro Handheld Console (100 Games)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230e3816'/><rect x='6' y='6' width='20' height='16' rx='2' fill='%234ef574'/><circle cx='11' cy='26' r='2' fill='%234ef574'/><circle cx='21' cy='26' r='2' fill='%231b7a32'/></svg>">
+  <link rel="stylesheet" href="css/console.css">
+</head>
+<body>
+  <!-- VERDANT-100 Physical Handheld Chassis -->
+  <div id="console-chassis">
+    <!-- Top Bar: Speakers slits, Brand Logo, and Large Power Switch -->
+    <div class="top-header">
+      <div class="speaker-slits">
+        <div class="speaker-slit"></div>
+        <div class="speaker-slit"></div>
+        <div class="speaker-slit"></div>
+      </div>
+      <div class="chassis-logo">VERDANT-100</div>
+      <div class="power-section" id="btn-power" title="POWER SWITCH (CLICK TO TURN ON/OFF)">
+        <span class="power-label">POWER</span>
+        <div class="power-led" id="power-led"></div>
+      </div>
+    </div>
+
+    <!-- Screen Bezel Housing with CRT Screen -->
+    <div class="screen-housing">
+      <div class="bezel-top-text">
+        <span>STEREO CHIPTUNE APU</span>
+        <span>HIGH REFRESH CRT PHOSPHOR</span>
+      </div>
+      <div class="crt-screen-wrap">
+        <canvas id="screen-canvas" width="256" height="240"></canvas>
+        <div class="crt-scanlines" id="crt-scanlines"></div>
+        <div class="crt-vignette"></div>
+        <div class="crt-beam-overlay" id="crt-beam-overlay"></div>
+      </div>
+    </div>
+
+    <!-- Physical Controls Enclosure -->
+    <div class="controls-housing">
+      <!-- SELECT & START pill buttons -->
+      <div class="meta-buttons-bar">
+        <div class="meta-btn-col" id="col-select" title="Sort by Category">
+          <div class="meta-pill-btn" id="btn-select"></div>
+          <span class="meta-label">SORT BY CATEGORY</span>
+        </div>
+        <div class="meta-btn-col" id="col-start">
+          <div class="meta-pill-btn" id="btn-start"></div>
+          <span class="meta-label">START</span>
+        </div>
+      </div>
+
+      <!-- Main Controls: Molded D-Pad & Action Buttons -->
+      <div class="main-controls">
+        <div class="dpad-container" id="dpad-zone">
+          <div class="dpad-cross">
+            <div class="dpad-btn dpad-up" data-dir="up">
+              <svg viewBox="0 0 20 20" class="dpad-icon"><polygon points="10,4 3,16 17,16"/></svg>
+            </div>
+            <div class="dpad-btn dpad-left" data-dir="left">
+              <svg viewBox="0 0 20 20" class="dpad-icon"><polygon points="4,10 16,3 16,17"/></svg>
+            </div>
+            <div class="dpad-center"></div>
+            <div class="dpad-btn dpad-right" data-dir="right">
+              <svg viewBox="0 0 20 20" class="dpad-icon"><polygon points="16,10 4,3 4,17"/></svg>
+            </div>
+            <div class="dpad-btn dpad-down" data-dir="down">
+              <svg viewBox="0 0 20 20" class="dpad-icon"><polygon points="10,16 3,4 17,4"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons-wrap">
+          <div class="action-btn-col action-b-col">
+            <div class="action-btn" id="btn-b">B</div>
+          </div>
+          <div class="action-btn-col action-a-col">
+            <div class="action-btn" id="btn-a">A</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Utility Bar: Compact & fully visible inside viewport -->
+    <div class="utility-bar">
+      <button class="util-btn" id="btn-mute">MUTE: OFF</button>
+      <button class="util-btn" id="btn-crt">CRT: ON</button>
+      <button class="util-btn" id="btn-fs">FULLSCREEN</button>
+      <button class="util-btn" id="btn-menu">MENU</button>
+    </div>
+  </div>
+
+  <!-- Modular Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/gfx.js"></script>
+  <script src="js/apu.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/pad.js"></script>
+  <script src="js/engines.js"></script>
+  <script src="js/carts.js"></script>
+  <script src="js/vos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
