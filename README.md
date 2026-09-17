@@ -1,257 +1,257 @@
-﻿# 📟 VERDANT-100 — Retro Phosphor Handheld Console
+<p align="center">
+  <b>English</b> | <a href="README_RU.md">Русский</a> | <a href="README_ZH.md">简体中文</a>
+</p>
 
-> **100 Cartridges in 1 Handheld Console · Pure Vanilla Web Platform · Zero Dependencies**
+# 📟 VERDANT-100 — Retro Phosphor Handheld Console
+
+> **100 Built-In Cartridges in One Vintage Handheld · Pure Vanilla Web Platform · Zero Dependencies**
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-4ef574?style=for-the-badge)
 ![Platform: Web](https://img.shields.io/badge/Platform-HTML5%20%7C%20Canvas2D%20%7C%20WebAudio-1b7a32?style=for-the-badge)
 ![Games: 100](https://img.shields.io/badge/Games-100%20Cartridges-0e3816?style=for-the-badge)
 ![FPS: 60](https://img.shields.io/badge/FPS-60%20Hz%20Phosphor%20CRT-4ef574?style=for-the-badge)
 
-**VERDANT-100** — виртуальная портативная игровая консоль в эстетике монохромных люминофорных CRT-дисплеев и ранних портативок рубежа 80-х и 90-х годов. На борту консоли находится **100 полноценных игр** (10 жанров по 10 картриджей), синтезатор чиптюн-звуков, сохранение рекордов в LocalStorage, выбор сложности и адаптивный корпус, подстраивающийся под любой экран — от смартфонов до 4K-мониторов.
+🎮 **[Play Live in Browser (GitHub Pages)](https://markhaker.github.io/verdant-100/)**
+
+**VERDANT-100** is an authentic virtual handheld game console simulator inspired by the late-1980s P1 green-phosphor CRT monitors and early monochrome portables. Packed inside is a full library of **100 complete, handcrafted games** across 10 distinct genres (10 cartridges each) — backed by a custom real-time Web Audio APU chiptune synth, persistent high-score saves, reactive difficulty multipliers, and a tactile retro shell that dynamically scales to any screen, from mobile phones to 4K desktop monitors.
 
 ---
 
-## 🎮 Управление / Controls
+## 🎮 Controls
 
-### Клавиатура (ПК / Ноутбук)
-| Кнопка консоли | Основная клавиша | Дополнительные клавиши |
+### Keyboard (Desktop / Laptop)
+| Console Control | Primary Key | Secondary Keys |
 |---|---|---|
-| **D-PAD (Вверх / Вниз / Влево / Вправо)** | `↑` `↓` `←` `→` | `W` `S` `A` `D` (или русские `Ц` `Ы` `Ф` `В`) |
-| **Кнопка A (Действие / Выбор)** | `Z` / `Space` | `C`, `J` |
-| **Кнопка B (Отмена / Назад)** | `X` / `Escape` | `V`, `K`, `Backspace` |
-| **START (Старт / Пауза)** | `Enter` | `NumpadEnter` |
-| **SELECT (Фильтр жанров)** | `Shift` | `Tab` |
+| **D-PAD (Up / Down / Left / Right)** | `↑` `↓` `←` `→` | `W` `S` `A` `D` (or Cyrillic `Ц` `Ы` `Ф` `В`) |
+| **A Button (Action / Confirm)** | `Z` / `Space` | `C`, `J` |
+| **B Button (Back / Cancel)** | `X` / `Escape` | `V`, `K`, `Backspace` |
+| **START (Start / Pause)** | `Enter` | `NumpadEnter` |
+| **SORT BY CATEGORY (Filter Genre)** | `Shift` | `Tab` |
 
-### Сенсорный экран и Мышь
-- **Molded D-Pad**: Нажатие на 4 направляющие стрелки крестовины либо свайпы по сенсорной зоне.
-- **START & SELECT**: Физические кнопки-пилюли под экраном.
-- **A & B**: Тактильные кнопки действия справа.
-- **POWER**: Крупный тумблер питания в верхнем правом углу с цветным LED-индикатором.
-- **Нижняя панель**: Переключение звука (`MUTE`), фильтра линий развертки (`CRT`), полноэкранного режима (`FULLSCREEN`) и системного меню (`MENU`).
+### Touchscreen & Mouse
+- **Molded D-Pad**: Click the 4 directional arrow buttons or swipe freely within the circular D-Pad zone.
+- **START & SORT BY CATEGORY**: Angled tactile pill buttons positioned right beneath the screen.
+- **A & B Action Buttons**: Classic round arcade buttons on the right flank with tactile press states.
+- **POWER Switch**: Beefy physical power toggle in the top-right corner with a working multicolor status LED.
+- **Bottom Utility Dock**: Quick toggles for sound (`MUTE`), scanlines (`CRT`), full-screen scaling (`FULLSCREEN`), and system exit (`MENU`).
 
 ---
 
-## ⚡ Особенности системы
+## ⚡ Key Features
 
-- **Выбор уровня сложности перед стартом**:
-  - Для реактивных игр доступно переключение сложности:
-    - `EASY (0.75x)` — комфортная скорость для расслабленной игры.
-    - `NORMAL (1.00x)` — каноничная скорость.
-    - `HARD (1.40x)` — повышенная скорость для хардкора и проверки рефлексов.
-  - Пошаговые логические игры (такие как 2048, Сокобан, Шахматы, Судоку) не имеют ограничения по времени и не наказывают игрока таймерами.
-- **Синтезированный стерео-звук (Web Audio APU)**:
-  - 100% звуков и музыки синтезируются генераторами частот в реальном времени (Square, Triangle, White Noise). Ноль внешних mp3/wav файлов.
-- **ЭЛТ-дисплей P1 Phosphor Green**:
-  - Честное разрешение 256x240 пикселей, растровая развёртка, виньетирование, кинескопное включение луча CRT.
-- **Полная автономность**:
-  - 0 библиотек, 0 npm-пакетов, 0 сборщиков. Работает из любого статического сервера или двойным кликом по `index.html`.
-
----
-
-## 📚 Каталог картриджей (100 игр)
-
-### 🕹️ 1. ARCADE (Картриджи #001 — #010)
-| ID | Игра | Описание |
-|---|---|---|
-| #001 | **SNAKE** | Классическая змейка. Ешь яблоки, расти, избегай стен и хвоста. |
-| #002 | **TETRIS** | Складывай падающие тетрамино в горизонтальные линии. |
-| #003 | **PONG** | Дуэль с ИИ на отбивание мяча ракеткой. |
-| #004 | **ARKANOID** | Выбивай ряды кирпичей, лови мяч подвижной платформой. |
-| #005 | **INVADERS** | Отражай волны космических захватчиков лазерной пушкой. |
-| #006 | **ASTEROIDS** | Управляй космическим кораблем с инерцией и расстреливай астероиды. |
-| #007 | **LUNAR LANDER** | Мягкая посадка спускаемого модуля с учетом гравитации и топлива. |
-| #008 | **MISSILE CMD** | Защити города от града падающих ядерных боеголовок. |
-| #009 | **FROGGER** | Переведи лягушку через скоростное шоссе и реку с брёвнами. |
-| #010 | **PAC-MAZE** | Собирай точки в лабиринте, убегая от патрулирующих привидений. |
-
-### 🧩 2. PUZZLE (Картриджи #011 — #020)
-| ID | Игра | Описание |
-|---|---|---|
-| #011 | **2048** | Сдвигай плитки и объединяй одинаковые числа до 2048. |
-| #012 | **SOKOBAN** | Расставляй ящики по целевым точкам на складе. |
-| #013 | **MINESWEEPER** | Классический сапёр 9x9. Расставляй флаги, открывай пустые клетки. |
-| #014 | **LIGHTS OUT** | Погаси все лампочки на перекрестной матрице 5x5. |
-| #015 | **PIPE MANIA** | Вращай фрагменты труб, чтобы соединить ток воды до открытия клапана. |
-| #016 | **15-PUZZLE** | Собери костяшки от 1 до 15 по порядку в сетке 4x4. |
-| #017 | **MASTERMIND** | Угадай секретный 4-значный цветовой код по подсказкам быков и коров. |
-| #018 | **NONOGRAM** | Японские кроссворды 5x5: открывай клетки по числовым ориентирам. |
-| #019 | **TOWER HANOI** | Переложи башню из дисков на третий штырь. |
-| #020 | **MATCH-3** | Меняй местами самоцветы, создавая комбо из 3+ в ряд. |
-
-### ⚛️ 3. PHYSICS (Картриджи #021 — #030)
-| ID | Игра | Описание |
-|---|---|---|
-| #021 | **ARTILLERY** | Рассчитай угол и силу выстрела пушки с поправкой на ветер. |
-| #022 | **ORBIT SLING** | Используй гравитацию планет для разгона зонда через космос. |
-| #023 | **BRIDGE BUILD** | Проектируй ферменный мост из балок на прочность. |
-| #024 | **PORTAL DROP** | Запускай шары через связки порталов с сохранением импульса. |
-| #025 | **FALLING SAND** | Песочница: сыпучий песок, текучая вода, камень, огонь. |
-| #026 | **CHAIN REACT** | Детонируй ядро и наблюдай цепную взрывную реакцию. |
-| #027 | **BILLIARDS 2D** | Карманный бильярд с физикой упругого соударения шаров. |
-| #028 | **ROPE SWING** | Раскачивайся на тросе и рассчитывай момент отцепления. |
-| #029 | **LIQUID SORT** | Переливай разноцветные зелья по пробиркам до чистых фракций. |
-| #030 | **MARBLE MAZE** | Наклоняй гироскопом лабиринт, чтобы шар докатился до лунки. |
-
-### 🎵 4. RHYTHM & REFLEX (Картриджи #031 — #040)
-| ID | Игра | Описание |
-|---|---|---|
-| #031 | **FLAPPY** | Удерживай птицу в воздухе между преградами ритмичными нажатиями. |
-| #032 | **GUITAR TAP** | Нажимай ноты в ритм падающих по струнам маркеров. |
-| #033 | **WHACK MOLE** | Выбивай выпрыгивающих из нор кротов до истечения таймера. |
-| #034 | **QUICK DRAW** | Ковбойская дуэль: выстрели сразу по звуковому сигналу «DRAW». |
-| #035 | **LINE RUNNER** | Перепрыгивай шипы и препятствия на возрастающей скорости. |
-| #036 | **DOODLE JUMP** | Прыгай вверх по пружинящим платформам в бесконечность. |
-| #037 | **TRAFFIC CTRL** | Переключай светофоры на перекрестке без аварий. |
-| #038 | **DOWNWELL** | Падай в колодец, отстреливая монстров пулями из сапог. |
-| #039 | **BALANCE** | Удерживай шест на пальце гироскопом или стрелками. |
-| #040 | **BLINK MATCH** | Проверь моментальную реакцию на совпадение символов. |
-
-### 🛡️ 5. STRATEGY (Картриджи #041 — #050)
-| ID | Игра | Описание |
-|---|---|---|
-| #041 | **TACTICS** | Пошаговые бои на сетке: копейщики, лучники и мечники. |
-| #042 | **TOWER DEF** | Строй башни вдоль пути наступающих волн противников. |
-| #043 | **NAVAL BATTLE** | Морской бой 8x8: вычисли и потопи вражеский флот. |
-| #044 | **VIRUS SPREAD** | Захват клеток поля через клонирование или дальние прыжки. |
-| #045 | **AUTOBATTLER** | Нанимай юнитов и наблюдай за автобитвой стенка на стенку. |
-| #046 | **CITY 8X8** | Микро-градостроитель: зонируй жилые, деловые и заводские кварталы. |
-| #047 | **ANT COLONY** | Управляй феромонами муравьев для сбора припасов в гнездо. |
-| #048 | **LEMMINGS** | Назначай роли копателей и строителей идущим к обрыву леммингам. |
-| #049 | **MICRO-4X** | 20 ходов глобальной стратегии: наука, колонии, флот. |
-| #050 | **REVERSI** | Классическое Отелло 8x8: окружай фишки соперника и захватывай углы. |
-
-### ⚔️ 6. RPG & ADVENTURE (Картриджи #051 — #060)
-| ID | Игра | Описание |
-|---|---|---|
-| #051 | **ROGUE 1980** | ASCII Roguelike: герой `@`, процедурные комнаты, зелья, монстры. |
-| #052 | **DUNGEON 3D** | Raycasting бродилка по подземельям от первого лица в духе Wolfenstein. |
-| #053 | **TEXT QUEST** | Текстовый квест: 40 локаций, инвентарь, 3 концовки. |
-| #054 | **DECKBUILDER** | Карточный рогалик: трать энергию на удары, защиту и яд. |
-| #055 | **BOSS DUEL** | Дуэль с огромным боссом: тайминги парирования и перекаты. |
-| #056 | **TAMAGOTCHI** | Виртуальный питомец: корми, убирай и гладь люминофорного зверька. |
-| #057 | **ALCHEMY DESK** | Скрещивай 4 первоэлемента (огонь, вода, земля, воздух) в 30+ открытий. |
-| #058 | **PRISON BREAK** | Побег из тюрьмы: прячься от прожекторов и копай подкоп ложкой. |
-| #059 | **DEEP DIVER** | Погружайся в батискафе на океанское дно, уворачиваясь от мин. |
-| #060 | **MINECART** | Несись на вагонетке по заброшенной шахте, переключая стрелки. |
-
-### 🏆 7. SPORTS & ACTION (Картриджи #061 — #070)
-| ID | Игра | Описание |
-|---|---|---|
-| #061 | **3D RACER** | Псевдо-3D гонки с перспективой дороги и обгоном трафика. |
-| #062 | **RETRO GOLF** | Загоняй мяч в лунку с учетом неровностей рельефа и силы удара. |
-| #063 | **AIR HOCKEY** | Скоростной аэрохоккей против шустрого компьютерного соперника. |
-| #064 | **PENALTY KICK** | Футбольная серия пенальти: обмани вратаря направлением и кручением. |
-| #065 | **ARCHERY** | Стрельба из лука по мишени с качающимся прицелом и ветром. |
-| #066 | **SLALOM SKI** | Скоростной спуск на лыжах с огибанием красных и синих ворот. |
-| #067 | **BOXING 2D** | Аркадный бокс: джеб, хук, блок, нырок под удар соперника. |
-| #068 | **FISHING ROD** | Рыбалка: закидывай спиннинг и подсекай рыбу по индикатору натяжения. |
-| #069 | **CURLING** | Кёрлинг: толкай камень в дом и три лёд щёткой для доката. |
-| #070 | **BOWLING** | Боулинг: выбирай траекторию разбега и выбивай страйк. |
-
-### 👁️ 8. STEALTH & SURVIVAL (Картриджи #071 — #080)
-| ID | Игра | Описание |
-|---|---|---|
-| #071 | **METAL GEAR** | Стелс-миссия: крадись мимо конусов обзора часовых к выходу. |
-| #072 | **ZOMBIE CABIN** | Оборона хижины: заколачивай досками окна и отстреливай мертвецов. |
-| #073 | **SONAR SUB** | Подводная лодка: ориентируйся по пингам гидролокатора во тьме. |
-| #074 | **BOMB DEFUSE** | Обезвреживание бомбы: перерезай провода строго по коду из инструкции. |
-| #075 | **SNIPER** | Найди цель в толпе по ориентирам из досье (шляпа + зонт). |
-| #076 | **LASER MIRROR** | Вращай зеркала под углом 45°, направляя лазерный луч на сенсор. |
-| #077 | **CROWD EVAC** | Спасай людей из охваченного пожаром здания через двери. |
-| #078 | **FNAF CAMS** | Ночной охранник: переключай камеры видеонаблюдения и экономь свет. |
-| #079 | **X-RAY SCAN** | Досмотр чемоданов: находи контрабанду на рентгене багажа. |
-| #080 | **TURRET 360** | Круговая турель: вращайся на 360° и уничтожай ракеты со всех сторон. |
-
-### 🧠 9. BRAIN & LOGIC (Картриджи #081 — #090)
-| ID | Игра | Описание |
-|---|---|---|
-| #081 | **SUDOKU 6X6** | Мини-судоку 6x6: заполни цифры 1-6 без повторений. |
-| #082 | **MATH RUSH** | Быстрая арифметика: подставь верный математический знак. |
-| #083 | **MEMORY FLIP** | Тренировка памяти: переворачивай парные рунические карточки. |
-| #084 | **CHIMP TEST** | Тест шимпанзе: запомни позиции чисел 1-9 и открой по порядку. |
-| #085 | **STROOP TEST** | Тест Струпа: выбирай фактическую яркость слова, а не его текст. |
-| #086 | **SIMON SOUND** | Повторяй растущую мелодическую последовательность из 4 кнопок. |
-| #087 | **MATRIX IQ** | Прогрессивные матрицы: вычисли недостающую 9-ю фигуру по правилу. |
-| #088 | **SPEED TYPER** | Сбивай падающие словесные метеоры набором букв на скорость. |
-| #089 | **ODD PIXEL** | Найди единственный отличающийся глиф среди одинаковых рун. |
-| #090 | **BINARY BYTE** | Включай 8 тумблеров (128..1), собирая заданное десятичное число. |
-
-### 🔬 10. SIMULATION & SANDBOX (Картриджи #091 — #100)
-| ID | Игра | Описание |
-|---|---|---|
-| #091 | **LIFE** | Клеточный автомат «Жизнь» Конвея: планеры, осцилляторы, пульсары. |
-| #092 | **THERMOSTAT** | Балансируй теплообмен реактора между радиаторами и нагревателем. |
-| #093 | **GLITCH FIX** | Восстанавливай поврежденные сектора видеопамяти от глитчей. |
-| #094 | **SINE SYNC** | Синхронизируй амплитуду и фазу двух синусоидальных сигналов. |
-| #095 | **ELEVATOR** | Диспетчер лифтов: развези жильцов 8 этажей с минимальным ожиданием. |
-| #096 | **SOLAR TRACK** | Направляй солнечные панели вслед за светилом для максимальной энергии. |
-| #097 | **DICE POKER** | Покер на костях (Яхтзи): собирай фулл-хаусы и каре. |
-| #098 | **SHOPKEEPER** | Торговец артефактами: оценивай раритеты и торгуйся с клиентами. |
-| #099 | **ARM WRESTLE** | Армрестлинг: быстро долби по кнопкам и пересиливай руку соперника. |
-| #100 | **HACKER TERM** | Киберпанк-терминал: сканируй порты, взламывай ICE и дешифруй узлы. |
+- **Pre-Game Speed & Difficulty Select**:
+  - Reaction-driven arcade games feature switchable difficulty multipliers on the cartridge preview card:
+    - **EASY (0.75x)** — Relaxed tempo for casual playthroughs.
+    - **NORMAL (1.00x)** — Canonical arcade speed.
+    - **HARD (1.40x)** — Fast-paced hardcore reflexes.
+  - Turn-based logic games (2048, Sokoban, Chess, Sudoku) run without speed modifiers or countdown timers so you can ponder moves at your own leisure.
+- **Real-Time Web Audio Chiptune APU**:
+  - 100% of sound effects and music are synthesized on the fly using native Web Audio oscillator nodes (Square, Triangle, Sine, Noise) filtered through low-pass filters. Zero external MP3/WAV audio files.
+  - Features relaxing ambient menu chords (Cmaj9 → Am9 → Fmaj7 → G6) and soft tactile click feedback.
+- **P1 Phosphor Green CRT Pipeline**:
+  - Pixel-perfect 256x240 internal canvas raster, authentic horizontal scanlines, corner vignetting, and retro beam-collapse power on/off transitions.
+- **Zero External Dependencies**:
+  - Zero npm packages, zero libraries, zero build steps. Runs out of the box from any static web server or simply by double-clicking `index.html`.
 
 ---
 
-## 🚀 Как запустить проект
+## 📚 Cartridge Catalog (100 Games)
 
-### Вариант 1: Без установки (Просто открыть в браузере)
-1. Скачайте репозиторий.
-2. Откройте файл `index.html` в любом современном браузере (Chrome, Edge, Firefox, Safari).
+### 🕹️ 1. ARCADE (Cartridges #001 — #010)
+| ID | Game | Description |
+|---|---|---|
+| #001 | **SNAKE** | Classic greedy serpent. Eat apples, grow longer, and avoid walls and self-collision. |
+| #002 | **TETRIS** | Pack falling tetromino blocks into gap-free horizontal lines. |
+| #003 | **PONG** | Fast paddle duel against an adaptive computer opponent. |
+| #004 | **ARKANOID** | Demolish brick formations with bouncing balls and a motorized deflector paddle. |
+| #005 | **INVADERS** | Defend earth from descending extraterrestrial marching formations. |
+| #006 | **ASTEROIDS** | Vector space flight with realistic momentum, rotation, and hyper-space blasters. |
+| #007 | **LUNAR LANDER** | Delicate lunar module descent balancing thruster fuel burn against gravity. |
+| #008 | **MISSILE CMD** | Intercept ballistic nuclear warheads with detonating flak batteries. |
+| #009 | **FROGGER** | Guide a helpless frog across a multi-lane highway and floating river logs. |
+| #010 | **PAC-MAZE** | Chomp maze pellets while dodging patrol ghost AI routines. |
 
-### Вариант 2: Локальный веб-сервер
+### 🧩 2. PUZZLE (Cartridges #011 — #020)
+| ID | Game | Description |
+|---|---|---|
+| #011 | **2048** | Slide numbered tiles on a 4x4 grid and merge matching powers of two. |
+| #012 | **SOKOBAN** | Push warehouse crates onto target goal spots with minimal step count. |
+| #013 | **MINESWEEPER** | Classic 9x9 minefield logic. Flag hidden explosives and sweep empty clearings. |
+| #014 | **LIGHTS OUT** | Toggle toggle-matrix switches to extinguish all glowing nodes. |
+| #015 | **PIPE MANIA** | Rotate pipe segments to form continuous aqueducts before water valves open. |
+| #016 | **15-PUZZLE** | Order scrambled numbered sliding tiles 1 through 15. |
+| #017 | **MASTERMIND** | Decipher a secret 4-digit color cipher using bulls-and-cows feedback hints. |
+| #018 | **NONOGRAM** | Japanese picture logic crosswords: reveal pixel illustrations from numeric clues. |
+| #019 | **TOWER HANOI** | Transfer graduated disc stacks between three peg poles following size constraints. |
+| #020 | **MATCH-3** | Swap adjacent gems to trigger chain reactions of 3+ matching gems. |
+
+### ⚛️ 3. PHYSICS (Cartridges #021 — #030)
+| ID | Game | Description |
+|---|---|---|
+| #021 | **ARTILLERY** | Calibrate cannon barrel elevation angle and powder charge against dynamic crosswinds. |
+| #022 | **ORBIT SLING** | Exploit planetary gravitational slingshots to slingshot satellite probes. |
+| #023 | **BRIDGE BUILD** | Design structural girder trusses capable of supporting dynamic transit loads. |
+| #024 | **PORTAL DROP** | Shoot dynamic interdimensional portals to slingshot projectiles preserving kinetic momentum. |
+| #025 | **FALLING SAND** | Particle sandbox simulation: dynamic sand grain avalanches, fluid water, rock, and fire. |
+| #026 | **CHAIN REACT** | Trigger a nuclear fission cluster explosion across dense atomic nodes. |
+| #027 | **BILLIARDS 2D** | Pocket pool featuring authentic elastic cue-ball collision physics. |
+| #028 | **ROPE SWING** | Build pendulum angular momentum on ropes and time mid-air releases. |
+| #029 | **LIQUID SORT** | Decant multi-colored test-tube potions into pure single-color fractions. |
+| #030 | **MARBLE MAZE** | Tilt labyrinth floorplates with tilt controls to guide rolling steel marbles into holes. |
+
+### 🎵 4. RHYTHM & REFLEX (Cartridges #031 — #040)
+| ID | Game | Description |
+|---|---|---|
+| #031 | **FLAPPY** | Tap rhythmic wing flaps to navigate tight pipe corridors. |
+| #032 | **GUITAR TAP** | Strike fretboard chords in synchronization with descending musical markers. |
+| #033 | **WHACK MOLE** | Hammer popping burrowing pests across 9 holes before timer expiration. |
+| #034 | **QUICK DRAW** | High-noon cowboy showdown: holster quick-draw reaction upon the audible "DRAW!" signal. |
+| #035 | **LINE RUNNER** | Leap spike pits and hurdles at progressively accelerating conveyor speeds. |
+| #036 | **DOODLE JUMP** | Bounce up trampoline ledges towards infinite vertical heights. |
+| #037 | **TRAFFIC CTRL** | Toggle four-way traffic lights to prevent high-speed intersection pileups. |
+| #038 | **DOWNWELL** | Freefall down a subterranean abyss firing gunboots downward to slow descent. |
+| #039 | **BALANCE** | Inverted broomstick pendulum balancing challenge on fingertips. |
+| #040 | **BLINK MATCH** | Instantaneous cognitive reflex test comparing consecutive glyph flashes. |
+
+### 🛡️ 5. STRATEGY (Cartridges #041 — #050)
+| ID | Game | Description |
+|---|---|---|
+| #041 | **TACTICS** | Grid turn-based warfare: position pikemen, archers, and heavy infantry. |
+| #042 | **TOWER DEF** | Erect ballistic defensive turrets along creeping enemy marching lanes. |
+| #043 | **NAVAL BATTLE** | 8x8 Battleship grid: triangulate and torpedo opposing dreadnought flotillas. |
+| #044 | **VIRUS SPREAD** | Contagion territorial conquest via cell cloning and long-range orbital hops. |
+| #045 | **AUTOBATTLER** | Draft unit rosters and watch real-time simulated army clashes unfold. |
+| #046 | **CITY 8X8** | Micro urban town planning: balance residential zones, smog-emitting factories, and commercial hubs. |
+| #047 | **ANT COLONY** | Pheromone trail network management guiding worker ants to scavenge sugar morsels. |
+| #048 | **LEMMINGS** | Assign digger, builder, and blocker specializations to preserve a marching clan. |
+| #049 | **MICRO-4X** | 20-turn pocket civilization: technological breakthroughs, star systems, and star fleets. |
+| #050 | **REVERSI** | Classic 8x8 Othello: flank and flip opposing stones to seize corner footholds. |
+
+### ⚔️ 6. RPG & ADVENTURE (Cartridges #051 — #060)
+| ID | Game | Description |
+|---|---|---|
+| #051 | **ROGUE 1980** | Pure ASCII dungeon crawler: venture deep into procedural crypts as `@`, chug unknown potions. |
+| #052 | **DUNGEON 3D** | Pseudo-3D raycaster labyrinth exploration reminiscent of classic early 90s FPS pioneers. |
+| #053 | **TEXT QUEST** | Branching interactive prose fiction: 40 distinct nodes, inventory management, and 3 story endings. |
+| #054 | **DECKBUILDER** | Card battler: spend energy crystals on strikes, blocks, and status curses. |
+| #055 | **BOSS DUEL** | Titan showdown: read attack tells, execute roll-dodges, and exploit vulnerability windows. |
+| #056 | **TAMAGOTCHI** | Phosphor virtual pet: sustain feeding schedules, tidy messes, and nurture companionship. |
+| #057 | **ALCHEMY DESK** | Synthesize 30+ compounds starting from prime elemental seeds (Earth, Fire, Water, Air). |
+| #058 | **PRISON BREAK** | Evade watchtower spotlights while tunneling through masonry with a hidden spoon. |
+| #059 | **DEEP DIVER** | Navigate an exploratory submersible through treacherous abyssal trenches littered with mines. |
+| #060 | **MINECART** | High-speed runaway minecart rail coaster: throw switch tracks before derailment. |
+
+### 🏆 7. SPORTS & ACTION (Cartridges #061 — #070)
+| ID | Game | Description |
+|---|---|---|
+| #061 | **3D RACER** | Outrun-style pseudo-3D highway racer: overtake dense traffic along undulating hills. |
+| #062 | **RETRO GOLF** | Read fairway contours and power meters to sink delicate green putts. |
+| #063 | **AIR HOCKEY** | Lightning-fast air hockey rink showdown against an aggressive digital mallet. |
+| #064 | **PENALTY KICK** | Penalty shootout: curl spinning soccer balls past the leaping goalkeeper's gloves. |
+| #065 | **ARCHERY** | Olympic target archery: steady aiming reticles against variable wind drift. |
+| #066 | **SLALOM SKI** | Alpine downhill skiing: slalom tightly between descending red and blue flag gates. |
+| #067 | **BOXING 2D** | 2D ring bout: jabs, hooks, high guards, and counter-punches inside the square circle. |
+| #068 | **FISHING ROD** | Sport fishing simulator: cast lures, detect gentle nibbles, and manage line reel tension. |
+| #069 | **CURLING** | Winter curling bonspiel: throw polished granite stones and sweep ice to hold the button. |
+| #070 | **BOWLING** | Adjust approach vectors and hook spin to demolish ten pins for a clean Strike. |
+
+### 👁️ 8. STEALTH & SURVIVAL (Cartridges #071 — #080)
+| ID | Game | Description |
+|---|---|---|
+| #071 | **METAL GEAR** | Tactical espionage action: slip past patrolling guard vision cones to reach extraction. |
+| #072 | **ZOMBIE CABIN** | Fortify cabin windows with lumber barricades against relentless undead swarms. |
+| #073 | **SONAR SUB** | Blind submarine navigation: ping active sonar transducers to chart submerged topography. |
+| #074 | **BOMB DEFUSE** | High-stakes bomb technician challenge: parse wire schematics before the detonator trips. |
+| #075 | **SNIPER** | Scan crowded public plazas through high-magnification scopes to eliminate designated marks. |
+| #076 | **LASER MIRROR** | Rotate optical prism mirrors to route coherent laser beams onto target photodiodes. |
+| #077 | **CROWD EVAC** | Route panicking civilian crowds past raging structural blazes toward emergency exits. |
+| #078 | **FNAF CAMS** | Night security watchman: cycle surveillance monitors and manage auxiliary backup wattage. |
+| #079 | **X-RAY SCAN** | Baggage inspection scanner: identify concealed contraband within commuter luggage. |
+| #080 | **TURRET 360** | 360-degree point-defense perimeter turret: vaporize incoming swarm missiles. |
+
+### 🧠 9. BRAIN & LOGIC (Cartridges #081 — #090)
+| ID | Game | Description |
+|---|---|---|
+| #081 | **SUDOKU 6X6** | Compact 6x6 number placement: fill grids without duplicating digits across blocks. |
+| #082 | **MATH RUSH** | Rapid mental arithmetic under extreme clock pressure: solve missing operator equations. |
+| #083 | **MEMORY FLIP** | Classic tile concentration: match paired phosphor hieroglyphs in minimal flips. |
+| #084 | **CHIMP TEST** | Working memory benchmark: memorize numerical sequences and tap covered tiles in order. |
+| #085 | **STROOP TEST** | Neuropsychological interference drill: identify true font hues while disregarding semantic text. |
+| #086 | **SIMON SOUND** | Reproduce escalating sequences of 4 tonal chime frequencies. |
+| #087 | **MATRIX IQ** | Raven's progressive matrices: deduce underlying rules across 3x3 abstract geometric grids. |
+| #088 | **SPEED TYPER** | Shoot down descending space debris by rapid-firing corresponding keyboard letters. |
+| #089 | **ODD PIXEL** | Visual acuity test: pinpoint the solitary anomalous symbol within sprawling glyph matrices. |
+| #090 | **BINARY BYTE** | Flip 8-bit binary registers (128..1) to synthesize targeted base-10 integers. |
+
+### 🔬 10. SIMULATION & SANDBOX (Cartridges #091 — #100)
+| ID | Game | Description |
+|---|---|---|
+| #091 | **LIFE** | Conway's Game of Life: witness gliders, oscillators, and pulsars emerge from simple rules. |
+| #092 | **THERMOSTAT** | Nuclear core thermal manager: balance liquid coolant pumps and graphite control rods. |
+| #093 | **GLITCH FIX** | Diagnostic VRAM memory scrubber: purge corrupted video artifact bytes before system crash. |
+| #094 | **SINE SYNC** | Oscilloscope calibration: match frequency and phase angles to achieve waveform lock. |
+| #095 | **ELEVATOR** | Skyscraper elevator dispatch: optimize multi-floor cabin routing to minimize passenger delays. |
+| #096 | **SOLAR TRACK** | Photovoltaic array positioning: adjust solar panel angles toward peak irradiance. |
+| #097 | **DICE POKER** | Classic Yacht dice poker: roll five dice over 3 turns to score Full Houses and Straights. |
+| #098 | **SHOPKEEPER** | Fantasy merchant barter simulator: buy low from returning adventurers and sell high to nobles. |
+| #099 | **ARM WRESTLE** | Rapid-button mash athletic duel: overpower your rival across the arm-wrestling table. |
+| #100 | **HACKER TERM** | Cyberpunk command prompt: scan subnet nodes, bypass security ICE, and decrypt neural files. |
+
+---
+
+## 🚀 Getting Started
+
+### Option 1: Instant Play (No Installation Required)
+1. Download or clone this repository.
+2. Double-click `index.html` in any modern desktop or mobile browser (Chrome, Edge, Safari, Firefox).
+
+### Option 2: Run via Local Static Server
 ```bash
-# Через Node.js (npx)
+# Using Node.js (npx)
 npx serve .
 
-# Либо через Python
+# Or using Python 3
 python -m http.server 8080
 ```
-После запуска перейдите по адресу `http://localhost:8080` (или порту, указанному сервером).
+Open `http://localhost:8080` in your browser.
 
 ---
 
-## 🌐 Публикация на GitHub Pages
+## 🌐 Deploy to GitHub Pages
 
-1. Создайте новый публичный репозиторий на **GitHub** (например, `verdant-100`).
-2. Загрузите файлы репозитория:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: VERDANT-100 console"
-   git branch -M main
-   git remote add origin https://github.com/ВАШ_ЛОГИН/verdant-100.git
-   git push -u origin main
-   ```
-3. В репозитории на GitHub перейдите в **Settings** $\to$ **Pages**.
-4. В разделе **Build and deployment**:
+1. Fork or push this repository to your **GitHub** account.
+2. In your GitHub repository, navigate to **Settings** $\to$ **Pages**.
+3. Under **Build and deployment**:
    - **Source**: `Deploy from a branch`
-   - **Branch**: `main`, папка `/ (root)`
-5. Нажмите **Save**. Через 1 минуту игра будет доступна онлайн по адресу:
-   `https://ВАШ_ЛОГИН.github.io/verdant-100/`
+   - **Branch**: `main`, folder `/ (root)`
+4. Click **Save**. Within 60 seconds, your handheld is live at:
+   `https://<your-username>.github.io/verdant-100/`
 
 ---
 
-## 🛠️ Архитектура проекта
+## 🛠️ Architecture & Source Organization
 
 ```
 verdant-100/
-├── index.html          # Разметка консоли, CRT-линзы и панели управления
-├── .nojekyll           # Флаг для GitHub Pages (отключает сборщик Jekyll)
-├── README.md           # Документация, список игр и инструкции по запуску
+├── index.html          # Console shell markup, CRT lens, and responsive tactile controls
+├── .nojekyll           # GitHub Pages marker (bypasses Jekyll static processing)
+├── README.md           # Primary Documentation (English)
+├── README_RU.md        # Documentation (Русский)
+├── README_ZH.md        # Documentation (简体中文)
 ├── css/
-│   └── console.css     # Адаптивные стили, 3x3 Grid крестовины, CRT-развертка
+│   └── console.css     # CSS variable scaling, 3x3 D-Pad grid, scanlines & vignette shaders
 └── js/
-    ├── config.js       # 4-цветная палитра, шрифт 4x6, жанры, разрешение
-    ├── gfx.js          # Быстрый рендерер примитивов, дизеринг и вывод текста
-    ├── apu.js          # Стерео чиптюн-синтезатор (Web Audio API)
-    ├── pad.js          # Менеджер ввода: клавиатура, тачскрин, виброотклик
-    ├── save.js         # Сохранение рекордов, настроек и прогресса (LocalStorage)
-    ├── engines.js      # 12 общих переиспользуемых игровых движков (E1 - E12)
-    ├── carts.js        # 100 игровых картриджей (10 жанров по 10 игр)
-    ├── vos.js          # ОС консоли: карусель, выбор сложности, CRT-бут, пауза
-    └── main.js         # Главный 60 FPS фиксированный аккумуляторный цикл
+    ├── config.js       # 4-color phosphor palette, 4x6 bitmap font, genre metadata
+    ├── gfx.js          # Hardware-accelerated 128x128 Canvas2D primitive rendering
+    ├── apu.js          # 4-channel Web Audio APU synthesizer & relaxing ambient engine
+    ├── pad.js          # Unified controller: multi-touch, keyboard bindings & haptics
+    ├── save.js         # Non-volatile cartridge save data & records (localStorage)
+    ├── engines.js      # 10 shared game engines (Verlet physics, 3D raycaster, BFS, Life)
+    ├── carts.js        # 100 complete cartridges with game loops & custom 24x24 icons
+    ├── vos.js          # Console OS: cartridge carousel, preview cards, speed multipliers
+    └── main.js         # 60 FPS fixed-timestep accumulator game loop & bootstrap
 ```
 
 ---
 
-*Создано с любовью к классическим портативным консолям.*
+*Handcrafted with genuine love for the classic golden era of handheld gaming.*
