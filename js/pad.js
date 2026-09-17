@@ -113,28 +113,38 @@ const PAD = {
 
     const attachButton = (el, actionKey) => {
       if (!el) return;
+      let isDown = false;
       const onDown = (e) => {
+        if (isDown) return;
+        isDown = true;
         APU.init();
         el.classList.add('active');
         this.setDown(actionKey);
         this.vibrate(10);
+        if (e.pointerId && el.setPointerCapture) {
+          try { el.setPointerCapture(e.pointerId); } catch (_) {}
+        }
         if (e.cancelable) e.preventDefault();
       };
       const onUp = (e) => {
+        if (!isDown) return;
+        isDown = false;
         el.classList.remove('active');
         this.setUp(actionKey);
         if (e.cancelable) e.preventDefault();
       };
 
-      el.addEventListener('pointerdown', onDown, { passive: false });
-      el.addEventListener('pointerup', onUp, { passive: false });
-      el.addEventListener('pointercancel', onUp, { passive: false });
-      el.addEventListener('pointerleave', onUp, { passive: false });
-      el.addEventListener('touchstart', onDown, { passive: false });
-      el.addEventListener('touchend', onUp, { passive: false });
-      el.addEventListener('touchcancel', onUp, { passive: false });
-      el.addEventListener('mousedown', onDown);
-      el.addEventListener('mouseup', onUp);
+      if (window.PointerEvent) {
+        el.addEventListener('pointerdown', onDown, { passive: false });
+        el.addEventListener('pointerup', onUp, { passive: false });
+        el.addEventListener('pointercancel', onUp, { passive: false });
+      } else {
+        el.addEventListener('touchstart', onDown, { passive: false });
+        el.addEventListener('touchend', onUp, { passive: false });
+        el.addEventListener('touchcancel', onUp, { passive: false });
+        el.addEventListener('mousedown', onDown);
+        el.addEventListener('mouseup', onUp);
+      }
     };
 
     attachButton(document.getElementById('btn-a'), 'a');
@@ -152,10 +162,6 @@ const PAD = {
       right: document.querySelector('.dpad-right')
     };
 
-    for (let dir in dpadButtons) {
-      attachButton(dpadButtons[dir], dir);
-    }
-
     let dpadTracking = false;
     let dpadPointerId = null;
 
@@ -169,7 +175,7 @@ const PAD = {
 
       const nextState = { up: false, down: false, left: false, right: false };
 
-      if (dist > 10) {
+      if (dist > 8) {
         const angle = Math.atan2(dy, dx) * (180 / Math.PI);
         if (angle >= -135 && angle <= -45) nextState.up = true;
         else if (angle >= 45 && angle <= 135) nextState.down = true;
@@ -224,20 +230,32 @@ const PAD = {
       dpadZone.addEventListener('pointercancel', (e) => {
         if (e.pointerId === dpadPointerId) clearDpad();
       }, { passive: false });
-
-      dpadZone.addEventListener('touchmove', (e) => {
-        if (e.touches && e.touches.length > 0) {
-          updateDpadFromCoords(e.touches[0].clientX, e.touches[0].clientY);
-          if (e.cancelable) e.preventDefault();
-        }
-      }, { passive: false });
-
-      dpadZone.addEventListener('touchend', () => clearDpad(), { passive: false });
     }
 
-    // Direct click/tap support on screen for Pause Menu items
+    // Screen touch gesture and direct click support
     const screenCanvas = document.getElementById('screen-canvas');
     if (screenCanvas) {
+      let swStartX = 0, swStartY = 0, swStartTime = 0;
+      screenCanvas.addEventListener('pointerdown', (e) => {
+        swStartX = e.clientX;
+        swStartY = e.clientY;
+        swStartTime = performance.now();
+      }, { passive: true });
+
+      screenCanvas.addEventListener('pointerup', (e) => {
+        const dx = e.clientX - swStartX;
+        const dy = e.clientY - swStartY;
+        const dist = Math.hypot(dx, dy);
+        const elapsed = performance.now() - swStartTime;
+        if (dist > 25 && elapsed < 450) {
+          if (Math.abs(dx) > Math.abs(dy)) {
+            this.swipe = dx > 0 ? 'right' : 'left';
+          } else {
+            this.swipe = dy > 0 ? 'down' : 'up';
+          }
+        }
+      }, { passive: true });
+
       screenCanvas.addEventListener('click', (e) => {
         if (VOS.mode !== 'PAUSE') return;
         const rect = screenCanvas.getBoundingClientRect();

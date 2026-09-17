@@ -195,6 +195,9 @@ const E3 = {
       }
     }
 
+    const goalId = E1.idx(grid, gx, gy);
+    if (!visited.has(goalId)) return [];
+
     const path = [];
     let cur = [gx, gy];
     while (cur) {
