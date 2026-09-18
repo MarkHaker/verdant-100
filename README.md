@@ -248,7 +248,8 @@ verdant-100/
     ├── pad.js          # Unified controller: multi-touch, keyboard bindings & haptics
     ├── save.js         # Non-volatile cartridge save data & records (localStorage)
     ├── engines.js      # 10 shared game engines (Verlet physics, 3D raycaster, BFS, Life)
-    ├── carts.js        # 100 complete cartridges with game loops & custom 24x24 icons
+    ├── carts.js        # Cartridge registry loader & Node.js test runner
+    ├── cartridges/     # 100 modular cartridge files (cart_001.js to cart_100.js)
     ├── vos.js          # Console OS: cartridge carousel, preview cards, speed multipliers
     └── main.js         # 60 FPS fixed-timestep accumulator game loop & bootstrap
 ```
