@@ -29,12 +29,20 @@ CARTS[2] = {
     this.lines = 0;
     this.level = 1;
     this.over = false;
+    this.dropTimer = 0;
+    this.dasTimer = 0;
+    this.dasDir = 0;
+    this.nextPiece = this.randomPiece();
     this.spawnPiece();
   },
-  spawnPiece() {
+  randomPiece() {
     const idx = Math.floor(Math.random() * this.SHAPES.length);
-    this.piece = this.SHAPES[idx];
-    this.px = 3;
+    return this.SHAPES[idx];
+  },
+  spawnPiece() {
+    this.piece = this.nextPiece || this.randomPiece();
+    this.nextPiece = this.randomPiece();
+    this.px = Math.floor((10 - this.piece[0].length) / 2);
     this.py = 0;
     this.dropTimer = 0;
     if (this.collides(this.px, this.py, this.piece)) {
@@ -65,40 +73,140 @@ CARTS[2] = {
     }
     return false;
   },
+  lockPiece() {
+    for (let r = 0; r < this.piece.length; r++) {
+      for (let c = 0; c < this.piece[r].length; c++) {
+        if (this.piece[r][c]) {
+          E1.set(this.grid, this.px + c, this.py + r, 2);
+        }
+      }
+    }
+    const cleared = this.clearLines();
+    if (cleared === 0) {
+      APU.sfx('HIT');
+    }
+    this.spawnPiece();
+  },
   update(dt) {
     if (this.over) {
       if (PAD.hit('a') || PAD.hit('start')) this.init();
       return;
     }
-    if (PAD.hit('left') && !this.collides(this.px - 1, this.py, this.piece)) {
-      this.px--; APU.sfx('TICK');
+
+    const sw = PAD.swipe;
+
+    // Shift left / right with responsive tap and auto-repeat (DAS)
+    if (PAD.hit('left') || sw === 'left') {
+      if (!this.collides(this.px - 1, this.py, this.piece)) {
+        this.px--;
+        APU.sfx('TICK');
+      }
+      this.dasDir = -1;
+      this.dasTimer = 0.18;
+    } else if (PAD.hit('right') || sw === 'right') {
+      if (!this.collides(this.px + 1, this.py, this.piece)) {
+        this.px++;
+        APU.sfx('TICK');
+      }
+      this.dasDir = 1;
+      this.dasTimer = 0.18;
+    } else if (PAD.held('left') && !PAD.held('right')) {
+      if (this.dasDir !== -1) {
+        this.dasDir = -1;
+        this.dasTimer = 0.18;
+      } else {
+        this.dasTimer -= dt;
+        if (this.dasTimer <= 0) {
+          if (!this.collides(this.px - 1, this.py, this.piece)) {
+            this.px--;
+            APU.sfx('TICK');
+          }
+          this.dasTimer = 0.05;
+        }
+      }
+    } else if (PAD.held('right') && !PAD.held('left')) {
+      if (this.dasDir !== 1) {
+        this.dasDir = 1;
+        this.dasTimer = 0.18;
+      } else {
+        this.dasTimer -= dt;
+        if (this.dasTimer <= 0) {
+          if (!this.collides(this.px + 1, this.py, this.piece)) {
+            this.px++;
+            APU.sfx('TICK');
+          }
+          this.dasTimer = 0.05;
+        }
+      }
+    } else {
+      this.dasDir = 0;
     }
-    if (PAD.hit('right') && !this.collides(this.px + 1, this.py, this.piece)) {
-      this.px++; APU.sfx('TICK');
-    }
-    if (PAD.hit('a') || PAD.hit('up')) {
+
+    // Rotate 90 degrees clockwise with wall kicks & floor kicks
+    if (PAD.hit('a') || PAD.hit('up') || sw === 'up') {
       const rot = this.rotate(this.piece);
-      if (!this.collides(this.px, this.py, rot)) {
-        this.piece = rot; APU.sfx('SWISH');
+      const isI = (this.piece.length === 4 || this.piece[0].length === 4 || rot.length === 4 || rot[0].length === 4);
+      const xOffsets = isI ? [0, -1, 1, -2, 2, -3] : [0, -1, 1, -2, 2];
+      const yOffsets = isI ? (this.py >= 16 ? [0, -1, -2, -3] : [0]) : (this.py >= 18 ? [0, -1] : [0]);
+      let rotated = false;
+      for (const oy of yOffsets) {
+        for (const ox of xOffsets) {
+          if (!this.collides(this.px + ox, this.py + oy, rot)) {
+            this.px += ox;
+            this.py += oy;
+            this.piece = rot;
+            APU.sfx('SWISH');
+            rotated = true;
+            break;
+          }
+        }
+        if (rotated) break;
       }
     }
 
-    const fallSpeed = PAD.state.down ? 0.05 : Math.max(0.1, 0.6 - (this.level - 1) * 0.05);
-    this.dropTimer += dt;
-    if (this.dropTimer >= fallSpeed) {
+    // Hard drop on [B] (instantly drops to floor, awards 2 pts/cell, and locks)
+    if (PAD.hit('b')) {
+      let dropDist = 0;
+      while (!this.collides(this.px, this.py + 1, this.piece)) {
+        this.py++;
+        dropDist++;
+      }
+      this.score += dropDist * 2;
+      SAVE.setScore(this.id, this.score);
+      this.lockPiece();
       this.dropTimer = 0;
+      return;
+    }
+
+    // Swipe down: soft drop step
+    if (sw === 'down') {
       if (!this.collides(this.px, this.py + 1, this.piece)) {
         this.py++;
-      } else {
-        // Lock piece
-        for (let r = 0; r < this.piece.length; r++) {
-          for (let c = 0; c < this.piece[r].length; c++) {
-            if (this.piece[r][c]) E1.set(this.grid, this.px + c, this.py + r, 2);
-          }
+        this.score += 1;
+        SAVE.setScore(this.id, this.score);
+        this.dropTimer = 0;
+        APU.sfx('TICK');
+      }
+    }
+
+    // Fall speed and fractional dt accumulator
+    const isSoftDrop = PAD.state.down || PAD.held('down');
+    const fallSpeed = isSoftDrop ? 0.05 : Math.max(0.08, 0.65 - (this.level - 1) * 0.05);
+    this.dropTimer += dt;
+    if (this.dropTimer > fallSpeed * 3) this.dropTimer = fallSpeed;
+
+    while (this.dropTimer >= fallSpeed) {
+      this.dropTimer -= fallSpeed;
+      if (!this.collides(this.px, this.py + 1, this.piece)) {
+        this.py++;
+        if (isSoftDrop) {
+          this.score += 1;
+          SAVE.setScore(this.id, this.score);
         }
-        APU.sfx('HIT');
-        this.clearLines();
-        this.spawnPiece();
+      } else {
+        this.lockPiece();
+        this.dropTimer = 0;
+        break;
       }
     }
   },
@@ -123,16 +231,23 @@ CARTS[2] = {
     if (cleared > 0) {
       this.lines += cleared;
       this.score += [0, 100, 300, 500, 800][cleared] * this.level;
+      const oldLevel = this.level;
       this.level = Math.floor(this.lines / 10) + 1;
-      APU.sfx('LEVELUP');
+      if (this.level > oldLevel || cleared >= 4) {
+        APU.sfx('LEVELUP');
+      } else {
+        APU.sfx('COIN');
+      }
+      SAVE.setScore(this.id, this.score);
     }
+    return cleared;
   },
   render(g) {
     g.clear(0);
     const ox = 78, oy = 16, sz = 10;
     g.box(ox - 2, oy - 2, 10 * sz + 4, 20 * sz + 4, 2);
 
-    // Grid
+    // Grid (locked blocks)
     for (let y = 0; y < 20; y++) {
       for (let x = 0; x < 10; x++) {
         const val = E1.get(this.grid, x, y);
@@ -143,8 +258,25 @@ CARTS[2] = {
       }
     }
 
+    // Ghost piece (landing projection outline)
+    if (!this.over && this.piece) {
+      let ghostY = this.py;
+      while (!this.collides(this.px, ghostY + 1, this.piece)) {
+        ghostY++;
+      }
+      if (ghostY > this.py) {
+        for (let r = 0; r < this.piece.length; r++) {
+          for (let c = 0; c < this.piece[r].length; c++) {
+            if (this.piece[r][c]) {
+              g.box(ox + (this.px + c) * sz, oy + (ghostY + r) * sz, sz, sz, 1);
+            }
+          }
+        }
+      }
+    }
+
     // Active piece
-    if (this.piece) {
+    if (this.piece && !this.over) {
       for (let r = 0; r < this.piece.length; r++) {
         for (let c = 0; c < this.piece[r].length; c++) {
           if (this.piece[r][c]) {
@@ -154,23 +286,53 @@ CARTS[2] = {
       }
     }
 
-    // Sidebar
+    // Left sidebar
     g.text("TETRIS", 12, 20, 3);
-    g.text("SCORE", 12, 40, 2);
-    g.text("" + this.score, 12, 50, 3);
-    g.text("LINES", 12, 70, 2);
-    g.text("" + this.lines, 12, 80, 3);
-    g.text("LEVEL", 12, 100, 2);
-    g.text("" + this.level, 12, 110, 3);
+    g.text("SCORE", 12, 42, 2);
+    g.text("" + this.score, 12, 54, 3);
+    g.text("LINES", 12, 74, 2);
+    g.text("" + this.lines, 12, 86, 3);
+    g.text("LEVEL", 12, 106, 2);
+    g.text("" + this.level, 12, 118, 3);
 
-    g.text("RECORD", 190, 40, 2);
-    g.text("" + SAVE.getScore(this.id), 190, 50, 3);
+    // Right sidebar
+    g.text("RECORD", 188, 42, 2);
+    g.text("" + Math.max(SAVE.getScore(this.id), this.score), 188, 54, 3);
 
+    // Next piece preview
+    g.text("NEXT", 188, 74, 2);
+    const nbx = 188, nby = 86, nbw = 54, nbh = 38, psz = 8;
+    g.rect(nbx, nby, nbw, nbh, 0);
+    g.box(nbx, nby, nbw, nbh, 2);
+    if (this.nextPiece) {
+      const pw = this.nextPiece[0].length * psz;
+      const ph = this.nextPiece.length * psz;
+      const sx = nbx + Math.floor((nbw - pw) / 2);
+      const sy = nby + Math.floor((nbh - ph) / 2);
+      for (let r = 0; r < this.nextPiece.length; r++) {
+        for (let c = 0; c < this.nextPiece[r].length; c++) {
+          if (this.nextPiece[r][c]) {
+            g.rect(sx + c * psz + 1, sy + r * psz + 1, psz - 2, psz - 2, 2);
+            g.box(sx + c * psz, sy + r * psz, psz, psz, 3);
+          }
+        }
+      }
+    }
+
+    // Controls reminder
+    g.text("CONTROLS", 188, 138, 1);
+    g.text("[A] ROT", 188, 150, 2);
+    g.text("[B] DROP", 188, 162, 2);
+    g.text("▼  SOFT", 188, 174, 2);
+
+    // Game Over Overlay
     if (this.over) {
-      g.dither(ox, 80, 10 * sz, 40, 0, 1);
-      g.box(ox, 80, 10 * sz, 40, 3);
-      g.textC("GAME OVER", 92, 3);
-      g.textC("[A] RETRY", 106, 2);
+      const bx = ox - 2, by = 76, bw = 10 * sz + 4, bh = 54;
+      g.dither(bx, by, bw, bh, 0, 1);
+      g.box(bx, by, bw, bh, 3);
+      g.textC("GAME OVER", by + 8, 3);
+      g.textC("SCORE " + this.score, by + 22, 2);
+      g.textC("[A] RETRY", by + 38, 3);
     }
   }
 };

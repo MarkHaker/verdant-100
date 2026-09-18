@@ -17,6 +17,8 @@ const PAD = {
   },
 
   swipe: null,
+  tapPos: null,
+  pointer: { x: 0, y: 0, down: false },
   tilt: { x: 0, y: 0 },
   longPress: false,
 
@@ -58,6 +60,7 @@ const PAD = {
       this.rels[k] = false;
     }
     this.swipe = null;
+    this.tapPos = null;
   },
 
   init() {
@@ -240,6 +243,20 @@ const PAD = {
         swStartX = e.clientX;
         swStartY = e.clientY;
         swStartTime = performance.now();
+        const rect = screenCanvas.getBoundingClientRect();
+        this.pointer = {
+          x: (e.clientX - rect.left) * (256 / rect.width),
+          y: (e.clientY - rect.top) * (240 / rect.height),
+          down: true
+        };
+      }, { passive: true });
+
+      screenCanvas.addEventListener('pointermove', (e) => {
+        if (this.pointer && this.pointer.down) {
+          const rect = screenCanvas.getBoundingClientRect();
+          this.pointer.x = (e.clientX - rect.left) * (256 / rect.width);
+          this.pointer.y = (e.clientY - rect.top) * (240 / rect.height);
+        }
       }, { passive: true });
 
       screenCanvas.addEventListener('pointerup', (e) => {
@@ -253,7 +270,18 @@ const PAD = {
           } else {
             this.swipe = dy > 0 ? 'down' : 'up';
           }
+        } else if (dist <= 25 && elapsed < 450) {
+          const rect = screenCanvas.getBoundingClientRect();
+          this.tapPos = {
+            x: (e.clientX - rect.left) * (256 / rect.width),
+            y: (e.clientY - rect.top) * (240 / rect.height)
+          };
         }
+        if (this.pointer) this.pointer.down = false;
+      }, { passive: true });
+
+      screenCanvas.addEventListener('pointercancel', () => {
+        if (this.pointer) this.pointer.down = false;
       }, { passive: true });
 
       screenCanvas.addEventListener('click', (e) => {

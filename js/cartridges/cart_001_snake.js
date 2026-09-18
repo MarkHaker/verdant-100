@@ -21,11 +21,12 @@ CARTS[1] = {
     this.snake = [[10, 10], [9, 10], [8, 10]];
     this.dir = [1, 0];
     this.nextDir = [1, 0];
-    this.spawnFood();
     this.score = 0;
     this.timer = 0;
     this.speed = 0.14;
     this.over = false;
+    this.won = false;
+    this.spawnFood();
   },
   spawnFood() {
     const free = [];
@@ -36,10 +37,17 @@ CARTS[1] = {
         }
       }
     }
-    this.food = free.length > 0 ? free[Math.floor(Math.random() * free.length)] : [12, 11];
+    if (free.length === 0) {
+      this.won = true;
+      this.food = null;
+      APU.sfx('LEVELUP');
+      SAVE.setScore(this.id, this.score);
+      return;
+    }
+    this.food = free[Math.floor(Math.random() * free.length)];
   },
   update(dt) {
-    if (this.over) {
+    if (this.over || this.won) {
       if (PAD.hit('a') || PAD.hit('start')) this.init();
       return;
     }
@@ -51,21 +59,29 @@ CARTS[1] = {
 
     this.timer += dt;
     if (this.timer >= this.speed) {
-      this.timer = 0;
+      this.timer -= this.speed;
       this.dir = this.nextDir;
       const head = [this.snake[0][0] + this.dir[0], this.snake[0][1] + this.dir[1]];
 
-      // Wall collision
+      // Wall collision (arena box: x: 1..25, y: 1..21)
       if (head[0] < 1 || head[0] > 25 || head[1] < 1 || head[1] > 21) {
         this.die(); return;
       }
-      // Tail collision
-      for (let s of this.snake) {
-        if (s[0] === head[0] && s[1] === head[1]) { this.die(); return; }
+
+      // Check eating food
+      const eating = this.food && head[0] === this.food[0] && head[1] === this.food[1];
+
+      // Tail collision: if eating, all segments persist; if moving without eating, tail tip vacates
+      const checkLen = eating ? this.snake.length : this.snake.length - 1;
+      for (let i = 0; i < checkLen; i++) {
+        const s = this.snake[i];
+        if (s[0] === head[0] && s[1] === head[1]) {
+          this.die(); return;
+        }
       }
 
       this.snake.unshift(head);
-      if (head[0] === this.food[0] && head[1] === this.food[1]) {
+      if (eating) {
         this.score++;
         APU.sfx('COIN');
         this.spawnFood();
@@ -82,24 +98,58 @@ CARTS[1] = {
   },
   render(g) {
     g.clear(0);
-    // Boundary wall
-    g.box(8, 8, 240, 204, 2);
-    // Apple
-    g.disc(8 + this.food[0] * 9 + 4, 8 + this.food[1] * 9 + 4, 3, 3);
-    // Snake
-    for (let i = 0; i < this.snake.length; i++) {
-      const s = this.snake[i];
-      g.rect(8 + s[0] * 9, 8 + s[1] * 9, 8, 8, i === 0 ? 3 : 2);
-    }
-    // HUD
-    g.text("SCORE: " + this.score, 12, 222, 3);
-    g.textR("BEST: " + SAVE.getScore(this.id), 244, 222, 2);
+    // Boundary wall enclosing 25x21 grid symmetrically (margins: 14px left/right, 10px top)
+    g.box(14, 10, 228, 192, 2);
 
+    // Apple with stem
+    if (this.food) {
+      const ax = 7 + this.food[0] * 9 + 4;
+      const ay = 3 + this.food[1] * 9 + 4;
+      g.disc(ax, ay, 3, 3);
+      g.px(ax, ay - 4, 2);
+    }
+
+    // Snake body & head
+    for (let i = this.snake.length - 1; i >= 0; i--) {
+      const s = this.snake[i];
+      const sx = 7 + s[0] * 9;
+      const sy = 3 + s[1] * 9;
+      if (i === 0) {
+        // Distinct head: brighter color + directional eyes
+        g.rect(sx, sy, 8, 8, 3);
+        if (this.dir[0] === 1) {
+          g.px(sx + 5, sy + 2, 0); g.px(sx + 5, sy + 5, 0);
+        } else if (this.dir[0] === -1) {
+          g.px(sx + 2, sy + 2, 0); g.px(sx + 2, sy + 5, 0);
+        } else if (this.dir[1] === -1) {
+          g.px(sx + 2, sy + 2, 0); g.px(sx + 5, sy + 2, 0);
+        } else {
+          g.px(sx + 2, sy + 5, 0); g.px(sx + 5, sy + 5, 0);
+        }
+      } else {
+        // Body segment
+        g.rect(sx, sy, 8, 8, 2);
+        g.rect(sx + 2, sy + 2, 4, 4, 1);
+      }
+    }
+
+    // HUD
+    g.text("SCORE: " + this.score, 14, 218, 3);
+    g.textR("BEST: " + SAVE.getScore(this.id), 241, 218, 2);
+
+    // Modal overlay for Game Over & Victory
     if (this.over) {
-      g.dither(64, 90, 128, 48, 0, 1);
-      g.box(64, 90, 128, 48, 3);
-      g.textC("GAME OVER", 102, 3);
-      g.textC("PRESS [A] TO RETRY", 118, 2);
+      g.dither(60, 80, 136, 52, 0, 1);
+      g.box(60, 80, 136, 52, 3);
+      g.textC("GAME OVER", 88, 3);
+      g.textC("SCORE: " + this.score, 101, 2);
+      g.textC("PRESS [A] TO RETRY", 114, 2);
+    } else if (this.won) {
+      g.dither(60, 80, 136, 52, 0, 1);
+      g.box(60, 80, 136, 52, 3);
+      g.textC("VICTORY!", 88, 3);
+      g.textC("PERFECT SCORE: " + this.score, 101, 2);
+      g.textC("PRESS [A] TO RETRY", 114, 2);
     }
   }
 };
