@@ -60,7 +60,7 @@ CARTS[88] = {
   },
 
   hookKeyboard() {
-    if (typeof window !== 'undefined' && !window._speedTyperHooked) {
+    if (typeof window !== 'undefined' && window.addEventListener && !window._speedTyperHooked) {
       window._speedTyperHooked = true;
       window.addEventListener('keydown', function(e) {
         var cart = (window.CONSOLE && window.CONSOLE.cart) ? window.CONSOLE.cart : (window.CARTS ? window.CARTS[88] : null);

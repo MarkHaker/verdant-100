@@ -138,10 +138,14 @@ const VOS = {
     this.launchTimer = setTimeout(() => {
       this.launchTimer = null;
       if (this.mode === 'MENU' || !this.activeCart) return;
-      APU.jingle(id);
-      cart.init();
-      const savedPer = SAVE.getPersistent(id);
-      if (savedPer && cart.load) cart.load(savedPer);
+      try {
+        APU.jingle(id);
+        cart.init();
+        const savedPer = SAVE.getPersistent(id);
+        if (savedPer && cart.load) cart.load(savedPer);
+      } catch (err) {
+        console.error(`[VOS] Error initializing cart #${id} (${cart.name}):`, err);
+      }
       this.mode = 'GAME';
       this.updateLED();
     }, 450);
@@ -273,8 +277,12 @@ const VOS = {
     } else if (this.mode === 'GAME') {
       this.gameTime += dt;
       if (this.activeCart && this.activeCart.update) {
-        const mult = this.isTurnBased(this.activeCart.id) ? 1.0 : this.getSpeedMultiplier();
-        this.activeCart.update(dt * mult);
+        try {
+          const mult = this.isTurnBased(this.activeCart.id) ? 1.0 : this.getSpeedMultiplier();
+          this.activeCart.update(dt * mult);
+        } catch (err) {
+          console.error(`[VOS] Error in cart #${this.activeCart.id} update:`, err);
+        }
       }
     } else if (this.mode === 'PAUSE') {
       // Pause menu navigation
@@ -355,7 +363,14 @@ const VOS = {
     } else if (this.mode === 'GAME') {
       g.clear(0);
       if (this.activeCart && this.activeCart.render) {
-        this.activeCart.render(g);
+        try {
+          this.activeCart.render(g);
+        } catch (err) {
+          console.error(`[VOS] Error in cart #${this.activeCart.id} render:`, err);
+          g.clear(0);
+          g.textC("RUNTIME ERROR IN GAME", 100, 3);
+          g.textC("PRESS [ESC] OR [MENU] TO RETURN", 120, 2);
+        }
       }
     } else if (this.mode === 'PAUSE') {
       // Draw frozen game state behind pause overlay

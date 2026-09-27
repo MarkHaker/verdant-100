@@ -23,7 +23,11 @@ function tick() {
 }
 
 function frame() {
-  tick();
+  try {
+    tick();
+  } catch (err) {
+    console.error("[MAIN] Frame error:", err);
+  }
   requestAnimationFrame(frame);
 }
 

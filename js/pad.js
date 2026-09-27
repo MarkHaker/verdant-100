@@ -2,6 +2,22 @@
 // ============================================================================
 // [PAD] INPUT MANAGER (KEYBOARD + MULTI-TOUCH D-PAD + GESTURES + HAPTICS)
 // ============================================================================
+const TOUCH = {
+  down: false,
+  held: false,
+  x: 0,
+  y: 0,
+  drag: false,
+  swipe: null,
+  tick() {
+    this.down = false;
+    this.drag = false;
+    this.swipe = null;
+  }
+};
+if (typeof window !== 'undefined') window.TOUCH = TOUCH;
+if (typeof global !== 'undefined') global.TOUCH = TOUCH;
+
 const PAD = {
   state: {
     up: false, down: false, left: false, right: false,
@@ -44,6 +60,10 @@ const PAD = {
     return !!this.state[k];
   },
 
+  btn(k) {
+    return !!this.state[k];
+  },
+
   rel(k) {
     return !!this.rels[k];
   },
@@ -61,6 +81,7 @@ const PAD = {
     }
     this.swipe = null;
     this.tapPos = null;
+    TOUCH.tick();
   },
 
   init() {
@@ -244,18 +265,26 @@ const PAD = {
         swStartY = e.clientY;
         swStartTime = performance.now();
         const rect = screenCanvas.getBoundingClientRect();
-        this.pointer = {
-          x: (e.clientX - rect.left) * (256 / rect.width),
-          y: (e.clientY - rect.top) * (240 / rect.height),
-          down: true
-        };
+        const px = (e.clientX - rect.left) * (256 / rect.width);
+        const py = (e.clientY - rect.top) * (240 / rect.height);
+        this.pointer = { x: px, y: py, down: true };
+        TOUCH.down = true;
+        TOUCH.held = true;
+        TOUCH.x = px;
+        TOUCH.y = py;
+        TOUCH.drag = false;
       }, { passive: true });
 
       screenCanvas.addEventListener('pointermove', (e) => {
         if (this.pointer && this.pointer.down) {
           const rect = screenCanvas.getBoundingClientRect();
-          this.pointer.x = (e.clientX - rect.left) * (256 / rect.width);
-          this.pointer.y = (e.clientY - rect.top) * (240 / rect.height);
+          const px = (e.clientX - rect.left) * (256 / rect.width);
+          const py = (e.clientY - rect.top) * (240 / rect.height);
+          this.pointer.x = px;
+          this.pointer.y = py;
+          TOUCH.x = px;
+          TOUCH.y = py;
+          TOUCH.drag = true;
         }
       }, { passive: true });
 
@@ -270,6 +299,7 @@ const PAD = {
           } else {
             this.swipe = dy > 0 ? 'down' : 'up';
           }
+          TOUCH.swipe = this.swipe;
         } else if (dist <= 25 && elapsed < 450) {
           const rect = screenCanvas.getBoundingClientRect();
           this.tapPos = {
@@ -278,10 +308,14 @@ const PAD = {
           };
         }
         if (this.pointer) this.pointer.down = false;
+        TOUCH.held = false;
+        TOUCH.drag = false;
       }, { passive: true });
 
       screenCanvas.addEventListener('pointercancel', () => {
         if (this.pointer) this.pointer.down = false;
+        TOUCH.held = false;
+        TOUCH.drag = false;
       }, { passive: true });
 
       screenCanvas.addEventListener('click', (e) => {
