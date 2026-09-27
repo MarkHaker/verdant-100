@@ -39,6 +39,10 @@ const GFX = {
     ctx.fillRect(x | 0, y | 0, 1, 1);
   },
 
+  pix(x, y, c = 3) {
+    this.px(x, y, c);
+  },
+
   rect(x, y, w, h, c = 2) {
     if (!ensureCtx() || w <= 0 || h <= 0) return;
     ctx.fillStyle = PAL[c | 0];
@@ -98,6 +102,16 @@ const GFX = {
     ctx.fillStyle = PAL[c | 0];
     for (let dy = -r; dy <= r; dy++) {
       const dx = Math.floor(Math.sqrt(r * r - dy * dy));
+      ctx.fillRect(cx - dx, cy + dy, dx * 2 + 1, 1);
+    }
+  },
+
+  oval(cx, cy, rx, ry, c = 2) {
+    if (!ensureCtx() || rx <= 0 || ry <= 0) return;
+    cx |= 0; cy |= 0; rx |= 0; ry |= 0;
+    ctx.fillStyle = PAL[c | 0];
+    for (let dy = -ry; dy <= ry; dy++) {
+      const dx = Math.floor(rx * Math.sqrt(Math.max(0, 1 - (dy * dy) / (ry * ry))));
       ctx.fillRect(cx - dx, cy + dy, dx * 2 + 1, 1);
     }
   },

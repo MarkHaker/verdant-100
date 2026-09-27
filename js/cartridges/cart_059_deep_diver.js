@@ -32,13 +32,13 @@ CARTS[59] = {
 
     // Top exhaust valve & side rivets
     g.rect(x + 14, y + 3, 4, 3, 3);
-    g.pix(x + 8, y + 15, 3);
-    g.pix(x + 24, y + 15, 3);
+    g.px(x + 8, y + 15, 3);
+    g.px(x + 24, y + 15, 3);
 
     // Rising air bubbles
-    g.pix(x + 22, y + 8, 3);
-    g.pix(x + 25, y + 5, 2);
-    g.pix(x + 23, y + 2, 3);
+    g.px(x + 22, y + 8, 3);
+    g.px(x + 25, y + 5, 2);
+    g.px(x + 23, y + 2, 3);
   },
 
   // --------------------------------------------------------------------------
@@ -677,7 +677,7 @@ CARTS[59] = {
         // Dorsal fin
         g.tri(s.x - dir * 2, sy - 5, s.x + dir * 6, sy - 5, s.x, sy - 14, shade);
         // Eye & jaw
-        g.pix(s.x + dir * 10, sy - 2, 0);
+        g.px(s.x + dir * 10, sy - 2, 0);
         g.line(s.x + dir * 8, sy + 3, s.x + dir * 14, sy + 2, 0);
       }
     }
@@ -701,7 +701,7 @@ CARTS[59] = {
         g.rect(m.dir === 1 ? 0 : 236, sy - 6, 20, 12, 1);
         const headX = m.dir === 1 ? m.x + m.lunge : m.x - m.lunge;
         g.oval(headX, sy, 12, 5, 2);
-        g.pix(headX + m.dir * 4, sy - 2, 3);
+        g.px(headX + m.dir * 4, sy - 2, 3);
       }
     }
 
@@ -730,7 +730,7 @@ CARTS[59] = {
     for (let sp of this.spears) {
       const sy = sp.y - camY;
       g.line(sp.x - 6, sy, sp.x + 6, sy, 3);
-      g.pix(sp.x + (sp.vx > 0 ? 7 : -7), sy, 3);
+      g.px(sp.x + (sp.vx > 0 ? 7 : -7), sy, 3);
     }
 
     // Render Bubbles & Sparkles
@@ -740,7 +740,7 @@ CARTS[59] = {
     }
     for (let p of this.particles) {
       const sy = p.y - camY;
-      if (sy > 0 && sy < 240) g.pix(p.x, sy, 3);
+      if (sy > 0 && sy < 240) g.px(p.x, sy, 3);
     }
 
     // ------------------------------------------------------------------------
@@ -754,7 +754,7 @@ CARTS[59] = {
     g.oval(this.x, dsy, 7, 5, suitShade);
     g.disc(this.x + f * 6, dsy - 1, 4, 3);
     // Mask viewport
-    g.pix(this.x + f * 8, dsy - 1, 0);
+    g.px(this.x + f * 8, dsy - 1, 0);
     // Oxygen Tank on back
     g.rect(this.x - f * 4, dsy - 6, 4, 9, 2);
     // Flippers kicking

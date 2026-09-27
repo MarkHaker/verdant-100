@@ -408,7 +408,7 @@ CARTS[60] = {
         } else if (gem.type === 2) {
           // Ruby
           g.disc(gem.x, gy - 1, 4, 3);
-          g.pix(gem.x, gy - 1, 0);
+          g.px(gem.x, gy - 1, 0);
         } else {
           // Radiant Diamond
           g.tri(gem.x, gy - 8, gem.x - 6, gy - 2, gem.x + 6, gy - 2, 3);
@@ -419,7 +419,7 @@ CARTS[60] = {
 
     // 6. Flying Wheel Sparks
     for (let sp of this.sparks) {
-      g.pix(sp.x, sp.y, 3);
+      g.px(sp.x, sp.y, 3);
     }
 
     // 7. Render Minecart & Miner
@@ -430,7 +430,7 @@ CARTS[60] = {
       if (!this.isDucking) {
         // Hardhat with miner lamp
         g.disc(this.cartX + 2, cy - 14, 4, 2);
-        g.pix(this.cartX + 6, cy - 15, 3); // headlamp
+        g.px(this.cartX + 6, cy - 15, 3); // headlamp
         // Light cone beam
         g.line(this.cartX + 6, cy - 15, this.cartX + 28, cy - 12, 1);
         g.line(this.cartX + 6, cy - 15, this.cartX + 28, cy - 18, 1);
