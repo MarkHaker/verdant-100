@@ -1096,6 +1096,23 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
       }
     },
 
+    drawIcon(g, x, y, rows, color, scale = 1) {
+      if (!rows || !rows.length) return;
+      for (let r = 0; r < 8; r++) {
+        const row = rows[r];
+        for (let c = 0; c < 8; c++) {
+          if ((row >> (7 - c)) & 1) {
+            if (scale === 1) {
+              if (g.pix) g.pix(x + c, y + r, color);
+              else g.rect(x + c, y + r, 1, 1, color);
+            } else {
+              g.rect(x + c * scale, y + r * scale, scale, scale, color);
+            }
+          }
+        }
+      }
+    },
+
     // ------------------------------------------------------------------------
     // RENDER HELPER: Left Beaker Slot 1
     // ------------------------------------------------------------------------
@@ -1122,7 +1139,7 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
         g.line(bx + 2, by + 35, bx + 41, by + 35, 3); // meniscus
 
         // 8x8 Element Icon scale 2 (16x16)
-        g.sprite(bx + 14, by + 39, 8, 8, el.icon, 3, 2);
+        this.drawIcon(g, bx + 14, by + 39, el.icon, 3, 2);
 
         // Element Name below beaker
         g.textC(el.name, by + 62, 3);
@@ -1160,7 +1177,7 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
         g.line(bx + 2, by + 35, bx + 41, by + 35, 3);
 
         // 8x8 Element Icon scale 2 (16x16)
-        g.sprite(bx + 14, by + 39, 8, 8, el.icon, 3, 2);
+        this.drawIcon(g, bx + 14, by + 39, el.icon, 3, 2);
 
         // Element Name below beaker
         g.textC(el.name, by + 62, 3);
@@ -1295,7 +1312,7 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
             }
 
             // 8x8 Element Icon
-            g.sprite(cx + 3, cy + 5, 8, 8, el.icon, isSelected ? 3 : 2, 1);
+            this.drawIcon(g, cx + 3, cy + 5, el.icon, isSelected ? 3 : 2, 1);
 
             // 4-letter tag
             g.text(el.tag, cx + 13, cy + 7, isSelected ? 3 : 2);
@@ -1320,7 +1337,7 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
 
         // Large 16x16 icon (scale 2)
         g.box(18 + sx, 195 + sy, 20, 20, 2);
-        g.sprite(20 + sx, 197 + sy, 8, 8, el.icon, 3, 2);
+        this.drawIcon(g, 20 + sx, 197 + sy, el.icon, 3, 2);
 
         // Element Name & Tier Badge
         g.text(el.name, 44 + sx, 196 + sy, 3);
@@ -1375,7 +1392,7 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
         // Large Center Icon (scale 3 = 24x24 px)
         g.box(112, 50, 32, 32, 2);
         g.rect(113, 51, 30, 30, 1);
-        g.sprite(116, 54, 8, 8, this.newElem.icon, 3, 3);
+        this.drawIcon(g, 116, 54, this.newElem.icon, 3, 3);
 
         // Element Name
         g.textC(this.newElem.name, 90, 3);
@@ -1451,7 +1468,7 @@ var CARTS = (typeof window !== 'undefined' ? (window.CARTS = window.CARTS || {})
       const pulseR = 18 + Math.floor(Math.sin(this.animTime * 4) * 3);
       g.circle(128, 54, pulseR, 2);
       g.circle(128, 54, 12, 3);
-      g.sprite(124, 50, 8, 8, ELEMENTS["PHILOSOPHER'S STONE"].icon, 3, 1);
+      this.drawIcon(g, 124, 50, ELEMENTS["PHILOSOPHER'S STONE"].icon, 3, 1);
 
       g.textC("★ MAGNUM OPUS COMPLETE ★", 80, 3);
       g.textC("THE GREAT WORK IS ACCOMPLISHED!", 94, 2);
