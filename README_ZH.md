@@ -6,10 +6,11 @@
 
 > **百合一经典复古掌机 · 纯原生 Web 平台 · 零第三方依赖**
 
-![License: MIT](https://img.shields.io/badge/License-MIT-4ef574?style=for-the-badge)
-![Platform: Web](https://img.shields.io/badge/Platform-HTML5%20%7C%20Canvas2D%20%7C%20WebAudio-1b7a32?style=for-the-badge)
-![Games: 100](https://img.shields.io/badge/Games-100%20Cartridges-0e3816?style=for-the-badge)
-![FPS: 60](https://img.shields.io/badge/FPS-60%20Hz%20Phosphor%20CRT-4ef574?style=for-the-badge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-4ef574?style=for-the-badge)](LICENSE)
+[![Platform: Web](https://img.shields.io/badge/Platform-HTML5%20%7C%20Canvas2D%20%7C%20WebAudio-1b7a32?style=for-the-badge)](https://markhaker.github.io/verdant-100/)
+[![Release: v2.0.0](https://img.shields.io/badge/%E5%8F%91%E5%B8%83-v2.0.0-4ef574?style=for-the-badge)](https://github.com/MarkHaker/verdant-100/releases/tag/v2.0.0)
+[![Games: 100](https://img.shields.io/badge/%E6%B8%B8%E6%88%8F-100%20%E6%AC%BE%E5%8D%A1%E5%B8%A6-0e3816?style=for-the-badge)](https://markhaker.github.io/verdant-100/)
+[![FPS: 60](https://img.shields.io/badge/FPS-60%20Hz%20Phosphor%20CRT-4ef574?style=for-the-badge)](https://markhaker.github.io/verdant-100/)
 
 🎮 **[在线畅玩 (GitHub Pages 直达)](https://markhaker.github.io/verdant-100/)**
 

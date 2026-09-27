@@ -6,10 +6,11 @@
 
 > **100 встроенных картриджей в одной ретро-консоли · Чистый веб · Без внешних библиотек**
 
-![License: MIT](https://img.shields.io/badge/License-MIT-4ef574?style=for-the-badge)
-![Platform: Web](https://img.shields.io/badge/Platform-HTML5%20%7C%20Canvas2D%20%7C%20WebAudio-1b7a32?style=for-the-badge)
-![Games: 100](https://img.shields.io/badge/Games-100%20Cartridges-0e3816?style=for-the-badge)
-![FPS: 60](https://img.shields.io/badge/FPS-60%20Hz%20Phosphor%20CRT-4ef574?style=for-the-badge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-4ef574?style=for-the-badge)](LICENSE)
+[![Platform: Web](https://img.shields.io/badge/Platform-HTML5%20%7C%20Canvas2D%20%7C%20WebAudio-1b7a32?style=for-the-badge)](https://markhaker.github.io/verdant-100/)
+[![Релиз: v2.0.0](https://img.shields.io/badge/%D0%A0%D0%B5%D0%BB%D0%B8%D0%B7-v2.0.0-4ef574?style=for-the-badge)](https://github.com/MarkHaker/verdant-100/releases/tag/v2.0.0)
+[![Игр: 100](https://img.shields.io/badge/%D0%98%D0%B3%D1%80-100%20%D0%9A%D0%B0%D1%80%D1%82%D1%80%D0%B8%D0%B4%D0%B6%D0%B5%D0%B9-0e3816?style=for-the-badge)](https://markhaker.github.io/verdant-100/)
+[![FPS: 60](https://img.shields.io/badge/FPS-60%20Hz%20Phosphor%20CRT-4ef574?style=for-the-badge)](https://markhaker.github.io/verdant-100/)
 
 🎮 **[Играть онлайн в браузере (GitHub Pages)](https://markhaker.github.io/verdant-100/)**
 
